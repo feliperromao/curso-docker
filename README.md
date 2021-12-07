@@ -112,3 +112,29 @@ docker run --name nginx3 -d -v meuvolume:/app nginx
 ```sh
 docker volume prune
 ```
+
+> Trabalhando com imagens
+- Baixando imagem do repositorio
+```sh
+docker pull php
+```
+
+- Listando imagens baixadas
+```sh
+docker images
+```
+
+- Removendo imagem
+```sh
+docker rmi php
+```
+
+- Criando image local a partir de um arquivo Dockerfile
+```sh
+docker build -t feliperromao/nginx-com-vim:latest .
+```
+
+- Criando imagem a partir de um arquivo dockerfile em outra pasta
+```sh
+docker build -f ./nginx/Dockerfile -t feliperromao/nginx-fullcycle .
+```
