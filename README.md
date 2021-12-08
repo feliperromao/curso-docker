@@ -138,3 +138,102 @@ docker build -t feliperromao/nginx-com-vim:latest .
 ```sh
 docker build -f ./nginx/Dockerfile -t feliperromao/nginx-fullcycle .
 ```
+
+> Trabalhando com networks
+
+- Listando networks
+```sh
+docker network ps
+```
+
+
+- Inspecionando networks
+```sh
+docker network inspect bridge
+```
+
+
+```json
+[
+    {
+        "Name": "bridge",
+        "Id": "f65d1464c5d822b4179da56c4d75fce186640b966e65cb363c89c897291c7d43",
+        "Created": "2021-12-06T11:24:06.0774937Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "52208a70d28e2361a47daf4e8ea6f9322309c54d70344fe84a32fa3b682a88f4": {
+                "Name": "ubuntu2",
+                "EndpointID": "31a70284be616d1b1e393750cc0ce1b09e883062985f9b8159394d5b70ad78e7",
+                "MacAddress": "02:42:ac:11:00:03",
+                "IPv4Address": "172.17.0.3/16",
+                "IPv6Address": ""
+            },
+            "63b747764b78f012e79268d56067d34da9aba5c269aa6d57c7908bc3b3c94d23": {
+                "Name": "ubuntu1",
+                "EndpointID": "bde71b7559e9324d382a2879831593ea48b55990b8de2f9410f9a72894fada17",
+                "MacAddress": "02:42:ac:11:00:02",
+                "IPv4Address": "172.17.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {}
+    }
+]
+```
+
+
+- Criando uma nova rede
+```sh
+docker network create --driver bridge minharede
+```
+
+
+- Executando container em uma rede existente
+```sh
+docker run -dit --name ubuntu2 --network minharede bash
+```
+
+
+- Conectando um container existente em uma rede existente
+```sh
+docker network connect minharede ubuntu3
+```
+
+
+- Criando um container numa rede tipo host
+```sh
+docker run --rm -d --name nginx --network host nginx
+```
+
+
+> Contaienr acessando nossa maquina
+```sh
+curl http://host.docker.internal:8082
+```
