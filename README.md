@@ -237,3 +237,8 @@ docker run --rm -d --name nginx --network host nginx
 ```sh
 curl http://host.docker.internal:8082
 ```
+
+> Executando imagem criada substituindo o CMD no Dockerfile
+```sh
+docker run --rm -d --name laravel -p 8001:8001 feliperromao/laravel --host=0.0.0.0 --port=8001
+```
