@@ -242,3 +242,9 @@ curl http://host.docker.internal:8082
 ```sh
 docker run --rm -d --name laravel -p 8001:8001 feliperromao/laravel --host=0.0.0.0 --port=8001
 ```
+
+> Criando aplicação Node.js 
+
+```sh
+docker run --rm -it -v $(pwd)/:/usr/src/app -p 3003:3003 node:15 bash
+```
