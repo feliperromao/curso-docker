@@ -248,3 +248,8 @@ docker run --rm -d --name laravel -p 8001:8001 feliperromao/laravel --host=0.0.0
 ```sh
 docker run --rm -it -v $(pwd)/:/usr/src/app -p 3003:3003 node:15 bash
 ```
+
+> Rodando build multstage do laravel, build em outra pasta
+```sh
+docker build -t feliperromao/laravel:prod laravel/ -f laravel/Dockerfile.prod
+```
