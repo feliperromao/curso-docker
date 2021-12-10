@@ -20,6 +20,7 @@ FROM php:7.4-fpm-alpine
 WORKDIR /var/www
 RUN rm -rf /var/www/html
 COPY --from=stage_1 /var/www/laravel .
+RUN ln -s public html
 # configura as permissões da pasta /var/www para o grupo/usuario www-data
 RUN chown -R www-data:www-data /var/www
 EXPOSE 9000
