@@ -4,6 +4,7 @@ services:
   app:
     container_name: app
     tty: true
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
     build:
       context: node
     volumes:
@@ -12,6 +13,8 @@ services:
       - node-network
     ports:
       - "3003:3003"
+    depends_on:
+      - db
     
   db:
     image: mysql:5.7
